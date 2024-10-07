@@ -11,5 +11,10 @@ java {
 
 dependencies {
     api(libs.kotlinx.serialization.json)
-    implementation("javax.inject:javax.inject:1")
+    implementation(libs.javax.inject)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
