@@ -55,15 +55,21 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
+    implementation(project(":domain"))
+
+    // Dependency injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    implementation(project(":domain"))
+    // Network
     implementation(libs.logging.interceptor)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
-
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -71,8 +77,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-}
-
-kapt {
-    correctErrorTypes = true
 }

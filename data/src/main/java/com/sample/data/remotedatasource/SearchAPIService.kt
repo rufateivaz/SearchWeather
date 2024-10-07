@@ -5,7 +5,18 @@ import com.sample.data.remotedatasource.model.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * Api service for the search operation.
+ * */
 interface SearchAPIService {
+    /**
+     * Api service to perform the search request.
+     *
+     * @param query is the city name given as search query.
+     * @param appId is the API key.
+     *
+     * @return [SearchResponse] data.
+     * */
     @GET("weather")
     suspend fun getSearchResponse(
         @Query("q") query: String,

@@ -12,39 +12,55 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * The viewmodel that handles search operation and updating ui accordingly.
+ * */
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-   private val getSearchDataUseCase: GetSearchDataUseCase,
-   private val getSearchQueryUseCase: GetSearchQueryUseCase
-): ViewModel() {
-   var initialSearchResultPresented = false
+    private val getSearchDataUseCase: GetSearchDataUseCase,
+    private val getSearchQueryUseCase: GetSearchQueryUseCase
+) : ViewModel() {
+    var initialSearchResultPresented = false
 
-   val searchDataState: State<SearchDataState> get() = _searchDataState
-   private val _searchDataState: MutableState<SearchDataState> = mutableStateOf(SearchDataState.Idle)
+    val searchDataState: State<SearchDataState> get() = _searchDataState
+    private val _searchDataState: MutableState<SearchDataState> =
+        mutableStateOf(SearchDataState.Idle)
 
-   fun clearState() {
-      _searchDataState.value = SearchDataState.Idle
-   }
+    /**
+     * Initializes the [searchDataState] back to Idle.
+     * */
+    fun initSearchDataState() {
+        _searchDataState.value = SearchDataState.Idle
+    }
 
-   fun getSearchData(query: String) {
-      _searchDataState.value = SearchDataState.Loading
-      viewModelScope.launch {
-         initialSearchResultPresented = true
-         _searchDataState.value = getSearchDataUseCase.invoke(query)
-      }
-   }
-
-   fun getSearchDataWithOldQuery() {
-      _searchDataState.value = SearchDataState.Loading
-      viewModelScope.launch {
-         val query = getSearchQueryUseCase.invoke()
-         if (query.isNotEmpty()) {
-            getSearchData(query)
-         }
-         else {
+    /**
+     * Takes query as a parameter and performs search.
+     * Updates ui with the received result: success/error
+     *
+     * @param query
+     * */
+    fun getSearchData(query: String) {
+        _searchDataState.value = SearchDataState.Loading
+        viewModelScope.launch {
             initialSearchResultPresented = true
-            _searchDataState.value = SearchDataState.Idle
-         }
-      }
-   }
+            _searchDataState.value = getSearchDataUseCase.invoke(query)
+        }
+    }
+
+    /**
+     * Performs search operation with the old query,
+     * stored in shared preferences.
+     * */
+    fun getSearchDataWithOldQuery() {
+        _searchDataState.value = SearchDataState.Loading
+        viewModelScope.launch {
+            val query = getSearchQueryUseCase.invoke()
+            if (query.isNotEmpty()) {
+                getSearchData(query)
+            } else {
+                initialSearchResultPresented = true
+                _searchDataState.value = SearchDataState.Idle
+            }
+        }
+    }
 }

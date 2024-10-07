@@ -32,7 +32,6 @@ private val LightColorScheme = lightColorScheme(
     onSurfaceVariant = Color(0xFF1976D2),
     inverseOnSurface = Color(0xFFF5F5F5),
     inverseSurface = Color(0xFF1A237E),
-    //primaryInverse = Color(0xFF1976D2)
 )
 
 // Dark Mode Blue Color Scheme
@@ -56,13 +55,11 @@ private val DarkColorScheme = darkColorScheme(
     onSurfaceVariant = Color(0xFFBBDEFB),
     inverseOnSurface = Color(0xFF1C1C1C),
     inverseSurface = Color(0xFFE0E0E0),
-    //primaryInverse = Color(0xFF0D47A1)
 )
 
 @Composable
 fun WeatherTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

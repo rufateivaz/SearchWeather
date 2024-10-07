@@ -5,6 +5,9 @@ import com.sample.data.remotedatasource.model.SearchResponse
 import com.sample.data.utils.toFahrenheit
 import com.sample.domain.model.SearchData
 
+/**
+ * Converts search response to domain model: SearchData
+ * */
 fun SearchResponse.toDomainModel(): SearchData = SearchData(
     city = name,
     temperature = toFahrenheit(main.temp),

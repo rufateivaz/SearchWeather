@@ -31,10 +31,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.sample.domain.model.SearchDataState
-import com.sample.weather.NavigationItem
+import com.sample.weather.screens.NavigationItem
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
+/**
+ * Search screen, where user types query (city name) and performs search operation.
+ * */
 @Composable
 fun SearchScreen(
     navController: NavHostController,
@@ -44,21 +47,20 @@ fun SearchScreen(
     if (!viewModel.initialSearchResultPresented) {
         if (city.isEmpty()) {
             viewModel.getSearchDataWithOldQuery()
-        }
-        else {
+        } else {
             viewModel.getSearchData(city)
         }
     }
     val query = rememberSaveable { mutableStateOf("") }
-    val searchResponse: SearchDataState by viewModel.searchDataState
+    val searchDataState: SearchDataState by viewModel.searchDataState
 
-    LaunchedEffect(searchResponse) {
-        if (searchResponse is SearchDataState.Success) {
-            val searchData = (searchResponse as SearchDataState.Success).searchData
+    LaunchedEffect(searchDataState) {
+        if (searchDataState is SearchDataState.Success) {
+            val searchData = (searchDataState as SearchDataState.Success).searchData
             val searchDataJson = Uri.encode(Json.encodeToString(searchData))
             val route = "${NavigationItem.SearchDetails.route}/$searchDataJson"
             navController.navigate(route = route)
-            viewModel.clearState()
+            viewModel.initSearchDataState()
         }
     }
 
@@ -104,9 +106,9 @@ fun SearchScreen(
                 disabledContentColor = MaterialTheme.colorScheme.inversePrimary,
                 contentColor = MaterialTheme.colorScheme.secondary
             ),
-            enabled = query.value.isNotEmpty() && (searchResponse !is SearchDataState.Loading)
+            enabled = query.value.isNotEmpty() && (searchDataState !is SearchDataState.Loading)
         ) {
-            if (searchResponse is SearchDataState.Loading) {
+            if (searchDataState is SearchDataState.Loading) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(20.dp),
                     strokeWidth = 2.dp,
@@ -117,7 +119,7 @@ fun SearchScreen(
             }
         }
 
-        if (searchResponse is SearchDataState.Error) {
+        if (searchDataState is SearchDataState.Error) {
             Text(
                 text = "The query is not successful.",
                 fontFamily = FontFamily.SansSerif,

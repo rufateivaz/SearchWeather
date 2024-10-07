@@ -2,6 +2,9 @@ package com.sample.data.localdatasource
 
 import android.content.SharedPreferences
 
+/**
+ * Shared preferences manager to store/get latest query.
+ * */
 class SearchPreferencesManager(
     private val sharedPreferences: SharedPreferences
 ) {

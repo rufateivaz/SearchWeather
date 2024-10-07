@@ -14,9 +14,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.sample.weather.NavigationItem
+import com.sample.weather.screens.NavigationItem
 import java.util.Locale
 
+/**
+ * This screen is presented to user to ask for location permission.
+ * */
 @SuppressLint("MissingPermission")
 @Composable
 fun LocationPermissionScreen(navController: NavController) {
@@ -37,9 +40,7 @@ fun LocationPermissionScreen(navController: NavController) {
             city?.let {
                 LaunchedEffect(Unit) {
                     navController.navigate("${NavigationItem.Search.route}/$it") {
-                        popUpTo(NavigationItem.LocationPermission.route) {
-                            inclusive = true
-                        }
+                        popUpTo(NavigationItem.LocationPermission.route) { inclusive = true }
                     }
                 }
             } ?: run {
@@ -48,21 +49,21 @@ fun LocationPermissionScreen(navController: NavController) {
                 fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                     city = location?.let {
                         val geocoder = Geocoder(context, Locale.getDefault())
-                        geocoder.getFromLocation(it.latitude, it.longitude, 1)?.let { addresses ->
-                            if (addresses.isNotEmpty()) addresses[0].locality ?: ""
-                            else ""
-                        } ?: ""
+                        geocoder.getFromLocation(it.latitude, it.longitude, 1)
+                            ?.let { addresses ->
+                                if (addresses.isNotEmpty()) addresses[0].locality ?: ""
+                                else ""
+                            } ?: ""
                     } ?: ""
                 }
             }
+
         }
 
         permissionDenied -> {
             LaunchedEffect(Unit) {
                 navController.navigate("${NavigationItem.Search.route}/") {
-                    popUpTo(NavigationItem.LocationPermission.route) {
-                        inclusive = true
-                    }
+                    popUpTo(NavigationItem.LocationPermission.route) { inclusive = true }
                 }
             }
         }

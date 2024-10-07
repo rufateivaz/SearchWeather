@@ -56,18 +56,12 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+
     implementation(libs.coil.compose)
     implementation(libs.play.services.location)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
-
-
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-
     implementation(libs.androidx.hilt.navigation.compose)
-
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.core.ktx)

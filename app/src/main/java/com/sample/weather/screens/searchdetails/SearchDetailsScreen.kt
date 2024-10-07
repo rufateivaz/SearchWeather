@@ -27,6 +27,9 @@ import coil.compose.AsyncImage
 import com.sample.domain.model.SearchData
 import com.sample.weather.R
 
+/**
+ * Search Details screen, to show the details of the search result.
+ * */
 @Composable
 fun SearchDetailsScreen(
     navController: NavController,
