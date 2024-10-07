@@ -1,3 +1,5 @@
+package com.sample.weather.screens.permission
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.location.Geocoder

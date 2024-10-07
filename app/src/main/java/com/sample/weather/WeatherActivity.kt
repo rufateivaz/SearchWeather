@@ -1,6 +1,5 @@
 package com.sample.weather
 
-import LocationPermissionScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sample.domain.model.SearchData
 import com.sample.weather.screens.NavigationItem
+import com.sample.weather.screens.permission.LocationPermissionScreen
 import com.sample.weather.screens.search.SearchScreen
 import com.sample.weather.screens.searchdetails.SearchDetailsScreen
 import com.sample.weather.ui.theme.WeatherTheme
