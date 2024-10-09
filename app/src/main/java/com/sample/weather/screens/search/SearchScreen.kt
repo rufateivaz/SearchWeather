@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -110,7 +111,7 @@ fun SearchScreen(
         ) {
             if (searchDataState is SearchDataState.Loading) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(20.dp).testTag("progressIndicator"),
                     strokeWidth = 2.dp,
                     color = MaterialTheme.colorScheme.background
                 )

@@ -6,6 +6,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -112,6 +113,30 @@ class SearchScreenTest {
         verify {
             vm.getSearchData("testCity")
         }
+    }
+
+    @Test
+    fun givenSearchDataStateIsErrorThenTheErrorMessageShouldBeDisplayed() {
+        every { vm.initialSearchResultPresented } returns true
+        every { vm.searchDataState.value } returns SearchDataState.Error(Exception())
+
+        composeTestRule.setContent {
+            SearchScreen(navController = navController, viewModel = vm)
+        }
+
+        composeTestRule.onNodeWithText("The query is not successful.")
+    }
+
+    @Test
+    fun givenSearchDataStateIsLoadingThenTheLoadingIndicatorShouldBeDisplayed() {
+        every { vm.initialSearchResultPresented } returns true
+        every { vm.searchDataState.value } returns SearchDataState.Loading
+
+        composeTestRule.setContent {
+            SearchScreen(navController = navController, viewModel = vm)
+        }
+
+        composeTestRule.onNodeWithTag("progressIndicator")
     }
 
     private val _searchData = SearchData(
