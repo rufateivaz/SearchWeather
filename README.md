@@ -4,8 +4,8 @@
 MVVM
 
 ## Tools
-Kotlin, Coroutines, Jetpack Compose, Compose Navigation, Geocoder, Dagger Hilt, Retrofit, OkhttpClient, HttpInterceptor, JUnit, Mockito.
+Kotlin, Coroutines, Jetpack Compose, Compose Navigation, Geocoder, Dagger Hilt, Retrofit, OkhttpClient, HttpInterceptor, JUnit, Mockito, MockK
 
-
-https://github.com/user-attachments/assets/3324fe22-3962-4c26-8523-948a9a1190cf
+## Demo
+https://github.com/user-attachments/assets/62d0e986-a7e8-48b1-9d99-e7a798232c9b
 
