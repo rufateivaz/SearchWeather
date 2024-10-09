@@ -29,7 +29,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.sample.domain.model.SearchDataState
 import com.sample.weather.screens.NavigationItem
 import kotlinx.serialization.encodeToString
@@ -40,7 +40,7 @@ import kotlinx.serialization.json.Json
  * */
 @Composable
 fun SearchScreen(
-    navController: NavHostController,
+    navController: NavController,
     city: String = "",
     viewModel: SearchViewModel = hiltViewModel()
 ) {

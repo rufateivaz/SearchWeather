@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +49,10 @@ fun SearchDetailsScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(
+                modifier = Modifier.testTag("backButton"),
+                onClick = { navController.popBackStack() }
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.back_arrow),
                     contentDescription = "Go back to search screen.",
