@@ -1,4 +1,5 @@
 # SearchWeather Application
+An application that retrieves the weather for a specific city.
 
 ## Architecutre
 MVVM
