@@ -1,8 +1,5 @@
 package com.sample.weather.feature.search
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sample.data.di.MainDispatcher
@@ -11,6 +8,9 @@ import com.sample.domain.search.getsearchqueryusecase.GetSearchQueryUseCase
 import com.sample.domain.search.model.SearchDataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,9 +25,8 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
     var initialSearchResultPresented = false
 
-    val searchDataState: State<SearchDataState> get() = _searchDataState
-    private val _searchDataState: MutableState<SearchDataState> =
-        mutableStateOf(SearchDataState.Idle)
+    private val _searchDataState = MutableStateFlow<SearchDataState>(SearchDataState.Idle)
+    val searchDataState: StateFlow<SearchDataState> = _searchDataState.asStateFlow()
 
     /**
      * Initializes the [searchDataState] back to Idle.

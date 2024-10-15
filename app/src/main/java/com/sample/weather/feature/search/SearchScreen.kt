@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.sample.domain.search.model.SearchDataState
 import com.sample.weather.navigation.NavigationItem
@@ -53,7 +54,7 @@ fun SearchScreen(
         }
     }
     val query = rememberSaveable { mutableStateOf("") }
-    val searchDataState: SearchDataState by viewModel.searchDataState
+    val searchDataState: SearchDataState by viewModel.searchDataState.collectAsStateWithLifecycle()
 
     LaunchedEffect(searchDataState) {
         if (searchDataState is SearchDataState.Success) {
@@ -111,7 +112,9 @@ fun SearchScreen(
         ) {
             if (searchDataState is SearchDataState.Loading) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(20.dp).testTag("progressIndicator"),
+                    modifier = Modifier
+                        .size(20.dp)
+                        .testTag("progressIndicator"),
                     strokeWidth = 2.dp,
                     color = MaterialTheme.colorScheme.background
                 )
