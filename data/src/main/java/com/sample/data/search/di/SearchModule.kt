@@ -5,7 +5,7 @@ import com.sample.data.BuildConfig
 import com.sample.data.search.SearchRepositoryImpl
 import com.sample.data.search.localdatasource.SearchPreferencesManager
 import com.sample.data.search.remotedatasource.SearchAPIService
-import com.sample.domain.SearchRepository
+import com.sample.domain.search.SearchRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

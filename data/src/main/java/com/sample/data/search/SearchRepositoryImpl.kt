@@ -4,8 +4,8 @@ import com.sample.data.di.IoDispatcher
 import com.sample.data.search.extensions.toDomainModel
 import com.sample.data.search.localdatasource.SearchPreferencesManager
 import com.sample.data.search.remotedatasource.SearchAPIService
-import com.sample.domain.SearchRepository
-import com.sample.domain.model.SearchDataState
+import com.sample.domain.search.SearchRepository
+import com.sample.domain.search.model.SearchDataState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

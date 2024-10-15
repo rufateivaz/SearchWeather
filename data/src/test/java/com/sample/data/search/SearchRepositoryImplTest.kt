@@ -6,8 +6,8 @@ import com.sample.data.search.remotedatasource.SearchAPIService
 import com.sample.data.search.remotedatasource.model.Main
 import com.sample.data.search.remotedatasource.model.SearchResponse
 import com.sample.data.search.remotedatasource.model.Weather
-import com.sample.domain.model.SearchData
-import com.sample.domain.model.SearchDataState
+import com.sample.domain.search.model.SearchData
+import com.sample.domain.search.model.SearchDataState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
