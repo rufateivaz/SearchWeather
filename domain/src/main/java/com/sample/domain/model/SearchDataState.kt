@@ -22,5 +22,5 @@ sealed class SearchDataState {
     /**
      * Error state.
      * */
-    data class Error(val throwable: Throwable) : SearchDataState()
+    data class Error(val error: Exception) : SearchDataState()
 }

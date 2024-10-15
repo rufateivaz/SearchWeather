@@ -1,4 +1,4 @@
-package com.sample.data.utils
+package com.sample.data.search.utils
 
 import kotlin.math.roundToInt
 

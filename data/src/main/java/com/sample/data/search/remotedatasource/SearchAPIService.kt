@@ -1,7 +1,8 @@
-package com.sample.data.remotedatasource
+package com.sample.data.search.remotedatasource
 
 import com.sample.data.BuildConfig
-import com.sample.data.remotedatasource.model.SearchResponse
+import com.sample.data.search.remotedatasource.model.SearchResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -21,5 +22,5 @@ interface SearchAPIService {
     suspend fun getSearchResponse(
         @Query("q") query: String,
         @Query("appid") appId: String = BuildConfig.API_KEY
-    ): SearchResponse
+    ): Response<SearchResponse>
 }

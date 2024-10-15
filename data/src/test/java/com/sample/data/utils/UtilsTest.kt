@@ -1,9 +1,10 @@
 package com.sample.data.utils
 
+import com.sample.data.search.utils.toFahrenheit
 import org.junit.Assert
 import org.junit.Test
 
-class UtilsKtTest {
+class UtilsTest {
 
     @Test
     fun whenConvertingFromKelvinToFahrenheitItShouldConvert() {

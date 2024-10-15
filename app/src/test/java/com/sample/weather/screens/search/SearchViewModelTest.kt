@@ -4,39 +4,19 @@ import com.sample.domain.getsearchdatausecase.GetSearchDataUseCase
 import com.sample.domain.getsearchqueryusecase.GetSearchQueryUseCase
 import com.sample.domain.model.SearchData
 import com.sample.domain.model.SearchDataState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SearchViewModelTest {
-    private val testDispatcher = StandardTestDispatcher()
-
     private lateinit var vm: SearchViewModel
     private val getSearchDataUseCase: GetSearchDataUseCase = mock()
     private val getSearchQueryUseCase: GetSearchQueryUseCase = mock()
-
-    @Before
-    fun setUp() {
-        Dispatchers.setMain(testDispatcher)
-        vm = SearchViewModel(getSearchDataUseCase, getSearchQueryUseCase)
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
-    }
 
     @Test
     fun whenGettingSearchResultGivenSuccessItShouldUpdateUIWithSuccessState() = runTest {
@@ -45,6 +25,8 @@ class SearchViewModelTest {
         whenever(getSearchDataUseCase.invoke(any())).thenReturn(state)
 
         // When
+        val testDispatcher = StandardTestDispatcher(testScheduler)
+        vm = SearchViewModel(getSearchDataUseCase, getSearchQueryUseCase, testDispatcher)
         vm.getSearchData("")
         testDispatcher.scheduler.advanceUntilIdle()
 
@@ -61,6 +43,8 @@ class SearchViewModelTest {
         whenever(getSearchDataUseCase.invoke(any())).thenReturn(state)
 
         // When
+        val testDispatcher = StandardTestDispatcher(testScheduler)
+        vm = SearchViewModel(getSearchDataUseCase, getSearchQueryUseCase, testDispatcher)
         vm.getSearchData("")
         testDispatcher.scheduler.advanceUntilIdle()
 
@@ -75,6 +59,8 @@ class SearchViewModelTest {
         whenever(getSearchQueryUseCase.invoke()).thenReturn("")
 
         // When
+        val testDispatcher = StandardTestDispatcher(testScheduler)
+        vm = SearchViewModel(getSearchDataUseCase, getSearchQueryUseCase, testDispatcher)
         vm.getSearchDataWithOldQuery()
         testDispatcher.scheduler.advanceUntilIdle()
 
@@ -90,6 +76,8 @@ class SearchViewModelTest {
         whenever(getSearchDataUseCase.invoke(any())).thenReturn(SearchDataState.Success(_searchData))
 
         // When
+        val testDispatcher = StandardTestDispatcher(testScheduler)
+        vm = SearchViewModel(getSearchDataUseCase, getSearchQueryUseCase, testDispatcher)
         vm.getSearchDataWithOldQuery()
         testDispatcher.scheduler.advanceUntilIdle()
 

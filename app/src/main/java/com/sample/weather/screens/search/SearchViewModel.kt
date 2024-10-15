@@ -5,10 +5,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sample.data.di.MainDispatcher
 import com.sample.domain.getsearchdatausecase.GetSearchDataUseCase
 import com.sample.domain.getsearchqueryusecase.GetSearchQueryUseCase
 import com.sample.domain.model.SearchDataState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getSearchDataUseCase: GetSearchDataUseCase,
-    private val getSearchQueryUseCase: GetSearchQueryUseCase
+    private val getSearchQueryUseCase: GetSearchQueryUseCase,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
     var initialSearchResultPresented = false
 
@@ -41,7 +44,7 @@ class SearchViewModel @Inject constructor(
      * */
     fun getSearchData(query: String) {
         _searchDataState.value = SearchDataState.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(mainDispatcher) {
             initialSearchResultPresented = true
             _searchDataState.value = getSearchDataUseCase.invoke(query)
         }
@@ -53,7 +56,7 @@ class SearchViewModel @Inject constructor(
      * */
     fun getSearchDataWithOldQuery() {
         _searchDataState.value = SearchDataState.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(mainDispatcher) {
             val query = getSearchQueryUseCase.invoke()
             if (query.isNotEmpty()) {
                 getSearchData(query)

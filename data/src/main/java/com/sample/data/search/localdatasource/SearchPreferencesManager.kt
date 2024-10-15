@@ -1,4 +1,4 @@
-package com.sample.data.localdatasource
+package com.sample.data.search.localdatasource
 
 import android.content.SharedPreferences
 

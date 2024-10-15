@@ -1,8 +1,8 @@
-package com.sample.data.extensions
+package com.sample.data.search.extensions
 
 import com.sample.data.BuildConfig
-import com.sample.data.remotedatasource.model.SearchResponse
-import com.sample.data.utils.toFahrenheit
+import com.sample.data.search.remotedatasource.model.SearchResponse
+import com.sample.data.search.utils.toFahrenheit
 import com.sample.domain.model.SearchData
 
 /**
