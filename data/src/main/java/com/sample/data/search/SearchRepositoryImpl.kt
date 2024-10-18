@@ -54,7 +54,7 @@ class SearchRepositoryImpl @Inject constructor(
 
      * @return [String] query.
      * */
-    override suspend fun getQuery(): String = withContext(Dispatchers.IO) {
+    override suspend fun getQuery(): String = withContext(ioDispatcher) {
         preferencesManager.getQuery() ?: ""
     }
 }
